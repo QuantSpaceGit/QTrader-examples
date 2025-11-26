@@ -1,0 +1,22 @@
+[project]
+name = "qtrader-examples"
+version = "0.1.0"
+description = "Examples for using the QTrader library"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "qtrader",
+]
+
+
+[dependency-groups]
+dev = [
+    "isort>=7.0.0",
+    "mdformat>=1.0.0",
+    "mypy>=1.18.2",
+    "pre-commit>=4.5.0",
+    "ruff>=0.14.6",
+]
+
+[tool.uv.sources]
+qtrader = { git = "https://github.com/QuantSpaceGit/QTrader.git" }
