@@ -4,9 +4,7 @@ version = "0.1.0"
 description = "Examples for using the QTrader library"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = [
-    "qtrader",
-]
+dependencies = ["qtrader"]
 
 
 [dependency-groups]
