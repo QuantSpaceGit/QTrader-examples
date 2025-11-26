@@ -12,7 +12,9 @@ dependencies = [
 [dependency-groups]
 dev = [
     "isort>=7.0.0",
-    "mdformat>=1.0.0",
+    "mdformat>=0.7.22,<0.8",
+    "mdformat-gfm>=0.3.5",
+    "mdformat-tables>=0.4.1",
     "mypy>=1.18.2",
     "pre-commit>=4.5.0",
     "ruff>=0.14.6",
