@@ -4,7 +4,7 @@ PROJECT_NAME := QTrader
 PYTHON_VERSION := 3.13
 VENV := .venv
 BIN := $(VENV)/bin
-SRC_DIR := src
+PYTHON_DIRS := library experiments
 
 # Terminal Colors
 # ---------------
@@ -134,7 +134,7 @@ pre-commit: sync ## 🔍 Run pre-commit hooks manually
 setup: sync install-hooks ## 🚀 Complete development environment setup
 	@echo "$(GREEN)✅ Development environment setup complete!$(END)"
 	@echo "$(BLUE)💡 Use 'uv run <command>' to run commands in the environment$(END)"
-	@echo "$(BLUE)💡 Example: uv run python $(SRC_DIR)/main.py$(END)"
+	@echo "$(BLUE)💡 Example: uv run qtrader run experiments/buy_hold/buy_hold.yaml$(END)"
 
 .PHONY: clean
 clean: ## 🧹 Clean workspace (remove cache, temp files)
@@ -156,10 +156,10 @@ clean: ## 🧹 Clean workspace (remove cache, temp files)
 .PHONY: format
 format: sync ## 🎨 Format code with ruff, isort, and markdown (matches pre-commit)
 	@echo "$(BLUE)ℹ️  Formatting Python code with ruff (fix + format)...$(END)"
-	@uv run ruff check --fix --target-version py313 $(SRC_DIR)/
-	@uv run ruff format --target-version py313 $(SRC_DIR)/
+	@uv run ruff check --fix --target-version py313 $(PYTHON_DIRS)
+	@uv run ruff format --target-version py313 $(PYTHON_DIRS)
 	@echo "$(BLUE)ℹ️  Formatting imports with isort...$(END)"
-	@uv run isort $(SRC_DIR)/
+	@uv run isort $(PYTHON_DIRS)
 	@echo "$(BLUE)ℹ️  Formatting Markdown files...$(END)"
 	@uv run mdformat . --wrap=no --end-of-line=lf || echo "$(YELLOW)⚠️  mdformat not installed, run 'uv add --dev mdformat mdformat-gfm mdformat-tables'$(END)"
 	@echo "$(GREEN)✅ Code and markdown formatting completed$(END)"
@@ -167,15 +167,15 @@ format: sync ## 🎨 Format code with ruff, isort, and markdown (matches pre-com
 .PHONY: lint
 lint: sync ## 🔍 Lint code and fix auto-fixable issues (matches pre-commit)
 	@echo "$(BLUE)ℹ️  Linting code...$(END)"
-	@uv run ruff check --fix --target-version py313 $(SRC_DIR)/
+	@uv run ruff check --fix --target-version py313 $(PYTHON_DIRS)
 	@echo "$(GREEN)✅ Code linting completed$(END)"
 
 .PHONY: lint-check
 lint-check: sync ## 📋 Check code without making changes (matches pre-commit)
 	@echo "$(BLUE)ℹ️  Checking code quality...$(END)"
-	@uv run ruff check --target-version py313 $(SRC_DIR)/
-	@uv run ruff format --target-version py313 --check $(SRC_DIR)/
-	@uv run isort --check-only $(SRC_DIR)/
+	@uv run ruff check --target-version py313 $(PYTHON_DIRS)
+	@uv run ruff format --target-version py313 --check $(PYTHON_DIRS)
+	@uv run isort --check-only $(PYTHON_DIRS)
 	@echo "$(GREEN)✅ Code quality check passed$(END)"
 
 .PHONY: format-md
@@ -187,7 +187,7 @@ format-md: sync ## 📝 Format Markdown files only
 .PHONY: type-check
 type-check: sync ## 🔬 Run type checking with MyPy
 	@echo "$(BLUE)ℹ️  Running type checks with MyPy...$(END)"
-	@uv run mypy $(SRC_DIR)/ || { \
+	@uv run mypy library || { \
 		echo "$(RED)❌ Type checking failed$(END)"; \
 		exit 1; \
 	}
