@@ -1,6 +1,6 @@
 Review the codebase changes and create logically separated commits based on the scope of work:
 
-1. Run any quality checks available, solving any issues if necessary. If issues cannot be resolved, report them and ask for guidance.
+1. Run `make qa`, solving any issues if necessary. If issues cannot be resolved, report them and ask for guidance.
 
 1. Analyze changes using version control status/diff
 
